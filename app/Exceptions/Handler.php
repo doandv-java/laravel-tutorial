@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Exception;
 
 class Handler extends ExceptionHandler
 {
@@ -46,5 +47,26 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * @param Exception|Throwable $exception
+     * @return void
+     * @throws Throwable
+     */
+    public function report(Exception|Throwable $exception)
+    {
+        parent::report($exception);
+    }
+
+    /**
+     * @param $request
+     * @param Exception|Throwable $exception
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws Throwable
+     */
+    public function render($request, Exception|Throwable $exception)
+    {
+        return parent::render($request, $exception);
     }
 }
